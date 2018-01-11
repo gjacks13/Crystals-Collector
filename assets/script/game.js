@@ -28,10 +28,6 @@ const startNewRound = () => {
     // get new target value
     targetValue = getTargetValue(crystalValues);
 
-    console.log(crystalValues);
-
-    console.log(targetValue);
-
     // update target value label
     updateTargetValueLbl(targetValue);
 
