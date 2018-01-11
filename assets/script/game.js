@@ -22,6 +22,9 @@ const initDomLabels = () => {
 }
 
 const startNewRound = () => {
+    totalScore = 0;
+    updateTotalScore(totalScore);
+
     // get new crystal values
     crystalValues = getCrystalValues(CRYSTAL_COUNT);
 
@@ -43,10 +46,9 @@ const updateTargetValueLbl = (targetValue) => {
 }
 
 const updateCrystalValues = (crystalValues) => {
-    let gems = $('.panel__cont__gem-btn')
-    gems.forEach(function(gem, index) {
+    $('.panel__cont__gem-btn').each(function(index) {
         // give each gem button a value from the crystal value array
-        gem.attr('data', crystalValues[index]);
+        $(this).attr('data', crystalValues[index]);
     });
 };
 
@@ -103,10 +105,10 @@ const appendInstructions = () => {
 };
 
 const setGemListeners = () => {
-    $('.panel__cont__gem-btn').forEach(function() {
-        this.on('click', function() {
-            let gemValue = parseInt(this.attr('data'));
-            let currentSumLbl = $('.panel__score');
+    $('.panel__cont__gem-btn').each(function(index) {
+        $(this).on('click', function() {
+            let gemValue = parseInt($(this).attr('data'));
+            let currentSumLbl = $('.panel__cont__score');
             let currentSum = parseInt(currentSumLbl.text());
             let newSum = currentSum + gemValue;
             currentSumLbl.text(newSum);
