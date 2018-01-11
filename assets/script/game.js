@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    appendInstructions();
+    initDomLabels();
     startNewRound();
 });
 
@@ -14,35 +14,43 @@ let winningCombo = [];
 let targetValue = 0;
 let totalScore = 0;
 
-const startNewRound = () => {
-    // update scoring
-    if (winCount === 0) {
-        updateWins(winCount);
-    } else {
-        updateWins(++winCount);
-    }
-    if (lossCount === 0) {
-        updateLosses(lossCount);
-    } else {
-        updateLosses(++lossCount);
-    }
-    if (totalScore === 0) {
-        updateTotalScore(totalScore);
-    }
+const initDomLabels = () => {
+    appendInstructions();
+    updateWins(winCount);
+    updateLosses(lossCount);
+    updateTotalScore(totalScore);
+}
 
+const startNewRound = () => {
     // get new crystal values
     crystalValues = getCrystalValues(CRYSTAL_COUNT);
 
     // get new target value
     targetValue = getTargetValue(crystalValues);
 
-    // set crystal btn listeners
+    console.log(crystalValues);
 
+    console.log(targetValue);
+
+    // update target value label
+    updateTargetValueLbl(targetValue);
+
+    // update crystal values
+    updateCrystalValues(crystalValues);
+
+    // set crystal btn listeners
+    setGemListeners();
 };
 
-const updateCrystalValues = (crystalValues) => {
-    crystalValues.forEach((value) => {
+const updateTargetValueLbl = (targetValue) => {
+    $('.panel__cont__target').text(targetValue);
+}
 
+const updateCrystalValues = (crystalValues) => {
+    let gems = $('.panel__cont__gem-btn')
+    gems.forEach(function(gem, index) {
+        // give each gem button a value from the crystal value array
+        gem.attr('data', crystalValues[index]);
     });
 };
 
@@ -72,22 +80,22 @@ const getTargetValue = (valueSet) => {
 
 const getCrystalValues = (crystalCount) => {
     let crystalValues = [];
-    for (let i = crystalCount; crystalCount <=0; crystalCount--) {
+    for (let i = crystalCount - 1; crystalCount > 0; crystalCount--) {
         crystalValues.push(getRandomInt(MIN_CRYSTAL_VALUE, MAX_CRYSTAL_VALUE));
     }
     return crystalValues;
 }
 
 const updateTotalScore = (totalScore) => {
-    $('.panel__score').text(totalScore);
+    $('.panel__cont__score').text(totalScore);
 };
 
 const updateWins = (winCount) => {
-    $('.panel__wins').text();
+    $('.panel__cont__wins').text(winCount);
 }
 
 const updateLosses = (lossCount) => {
-    $('.panel__losses').text();
+    $('.panel__cont__losses').text(lossCount);
 }
 
 const getRandomInt = (min, max) => {
@@ -97,6 +105,28 @@ const getRandomInt = (min, max) => {
 const appendInstructions = () => {
     $('.panel__instructions').text(INSTRUCTIONS);
 };
+
+const setGemListeners = () => {
+    $('.panel__cont__gem-btn').forEach(function() {
+        this.on('click', function() {
+            let gemValue = parseInt(this.attr('data'));
+            let currentSumLbl = $('.panel__score');
+            let currentSum = parseInt(currentSumLbl.text());
+            let newSum = currentSum + gemValue;
+            currentSumLbl.text(newSum);
+    
+            if (newSum === targetValue) {
+                // update wins
+                updateWins(winCount);
+                startNewRound();
+            } else if (newSum > targetValue) {
+                // update losses
+                updateLosses();
+                startNewRound();
+            }
+        });
+    });
+}
 
 const INSTRUCTIONS = 
 `You will be given a target number at the start of the game.

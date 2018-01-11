@@ -1,0 +1,89 @@
+.page {
+    background-image: url("../images/geometry.png");
+    background-repeat: repeat;
+    font-family: 'Poiret One', cursive;
+}
+
+.page--width-80 {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.page__header__text {
+    font-size: 3em;
+    text-align: center;
+    margin: 15px auto;
+}
+
+.panel {
+    margin: 10px 0;
+}
+
+.panel--orange {
+    background-color: rgba(255, 99, 71, 0.767);
+}
+
+.panel__instructions {
+    font-size: 1.5em;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.panel__cont {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.panel__cont__gem-btn {
+    height: 80px;
+    width: 80px;
+    margin: 0 10px;
+}
+
+.panel__cont__win-lbl {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.panel__cont__wins {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.panel__cont__loss-lbl {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.panel__cont__losses {
+    font-size: 1.5em;
+    display: inline;
+}
+
+.panel__cont__score-lbl {
+    font-size: 1.5em;
+}
+
+.panel__cont__score {
+    font-size: 1.5em;
+}
+
+.panel__cont__target {
+    font-size: 1.5em;
+}
+
+.panel__cont__gem-btn {
+    -webkit-transition:all 0.5s ease-out;
+    -moz-transition:all 0.5s ease-out;
+    -ms-transition:all 0.5s ease-out;
+    -o-transition:all 0.5s ease-out;
+    transition:all 0.5s ease-out;
+  }
+  
+  .panel__cont__gem-btn:hover {
+    -webkit-transform:scale(1.3);
+    -moz-transform:scale(1.3);
+    -ms-transform:scale(1.3);
+    -o-transform:scale(1.3);
+    transform:scale(1.3);
+  }
