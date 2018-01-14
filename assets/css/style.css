@@ -27,6 +27,7 @@
     font-size: 1.5em;
     box-sizing: border-box;
     padding: 20px;
+    text-align: center;
 }
 
 .panel__cont {

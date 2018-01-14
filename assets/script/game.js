@@ -25,6 +25,9 @@ const startNewRound = () => {
     totalScore = 0;
     updateTotalScore(totalScore);
 
+    // clear any gem event listeners
+    clearGemListeners();
+
     // get new crystal values
     crystalValues = getCrystalValues(CRYSTAL_COUNT);
 
@@ -37,6 +40,8 @@ const startNewRound = () => {
     // update crystal values
     updateCrystalValues(crystalValues);
 
+    console.log(winningCombo);
+    
     // set crystal btn listeners
     setGemListeners();
 };
@@ -101,7 +106,7 @@ const getRandomInt = (min, max) => {
 };
 
 const appendInstructions = () => {
-    $('.panel__instructions').text(INSTRUCTIONS);
+    $('.panel__instructions').html(INSTRUCTIONS);
 };
 
 const setGemListeners = () => {
@@ -115,25 +120,47 @@ const setGemListeners = () => {
     
             if (newSum === targetValue) {
                 // update wins
-                updateWins(winCount);
+                updateWins(++winCount);
+                alertRoundWon();
                 startNewRound();
             } else if (newSum > targetValue) {
                 // update losses
-                updateLosses();
+                updateLosses(++lossCount);
+                alertRoundLost();
                 startNewRound();
             }
         });
     });
 }
 
+const clearGemListeners = () => {
+    $('.panel__cont__gem-btn').each(function(index) {
+        $(this).off('click');
+    });
+}
+
+const alertRoundWon = () => {
+    const msg = 'Ayyyeee! You guessed the correct combination of crystals! :-)';
+    displayDialog(msg);
+};
+
+const alertRoundLost = () => {
+    const msg = 'Oh no! You overshot the target value. :-(';
+    displayDialog(msg);
+};
+
+const displayDialog = (dialogMsg) => {
+    vex.dialog.alert(dialogMsg)
+};
+
 const INSTRUCTIONS = 
-`You will be given a target number at the start of the game.
+`You will be given a target number at the start of the game.<br><br>
 
 There are four crystals below. Each crystal has a numeric 
 value attached, which is hidden from the user. When you
 click a crystal the crystal's value will be added to your
 total score. The value of each crystal is reset at the 
-start of every new game.
+start of every new game.<br><br>
 
 You win the game by matching your total score to the target number;
 you lose the game if your total score goes above the target number.`;
