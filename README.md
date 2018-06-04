@@ -4,6 +4,8 @@
 
 This is a fun math game. The user is given a target value, and 4 crystals with hidden values. The user must click the right combination of crystals; the total sum of crystals clicke must equal the target value to win.
 
+https://gjacks13.github.io/Crystals-Collector/
+
 ## Instructions
 
 You will be given a target number at the start of the game.
